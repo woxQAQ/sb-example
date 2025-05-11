@@ -1,0 +1,26 @@
+syntax = "proto3";
+package com.woxqaq.im.common.protocol;
+
+option java_multiple_files = true;
+option java_package = "com.woxqaq.im.common.protocol";
+
+message Request {
+  int64 request_id = 2;
+  string reqMsg = 1;
+  Command cmd = 3;
+  map<string, string> properties = 4;
+}
+
+message Response {
+  int64 response_id = 2;
+  string resMsg = 1;
+  Command cmd = 3;
+  map<string, string> properties = 4;
+}
+
+enum Command {
+  COMMAND_UNSPECIFIED = 0;
+  LOGIN_REQUEST = 3;
+  MESSAGE = 1;
+  PING = 2;
+}
