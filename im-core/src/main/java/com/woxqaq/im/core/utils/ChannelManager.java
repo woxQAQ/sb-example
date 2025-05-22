@@ -15,6 +15,11 @@ public class ChannelManager {
         return CHAN_MAP.get(userId);
     }
 
+    /**
+     *
+     * @param reqId
+     * @param nioSocketChannel
+     */
     public static void put(Long reqId, NioSocketChannel nioSocketChannel) {
         CHAN_MAP.put(reqId, nioSocketChannel);
     }
@@ -23,6 +28,11 @@ public class ChannelManager {
         SESSION_MAP.put(reqId, username);
     }
 
+    /**
+     *
+     * @param nioSocketChannel
+     * @return
+     */
     public static UserInfo getUserInfo(NioSocketChannel nioSocketChannel) {
         for (Map.Entry<Long, NioSocketChannel> e : CHAN_MAP.entrySet()) {
             NioSocketChannel chan = e.getValue();
@@ -33,5 +43,16 @@ public class ChannelManager {
             }
         }
         return null;
+    }
+
+    public  static  void removeSession(Long userId) {
+        CHAN_MAP.remove(userId);
+    }
+
+    public static void remove(NioSocketChannel channel) {
+        CHAN_MAP.entrySet()
+                .stream()
+                .filter(e -> e.getValue() == channel)
+                .forEach(e -> CHAN_MAP.remove(e.getKey()));
     }
 }

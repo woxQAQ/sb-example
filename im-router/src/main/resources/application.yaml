@@ -1,0 +1,26 @@
+logging:
+  level:
+    root: info
+server:
+  port: 8081
+
+spring:
+  application:
+    name:
+      cim-server
+im:
+  route:
+    url: http://localhost:8083
+  heartbeat:
+    time: 30
+  port: 10086
+
+meta:
+  uri: 127.0.0.1:2181
+  switch: true
+  timeout: 30000
+
+route:
+  way:
+    handler: com.woxqaq.im.common.route.algo.consistentHash
+    consistentHash: com.woxqaq.im.common.route.algo.consistentHash

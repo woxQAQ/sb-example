@@ -17,4 +17,7 @@ public class AppConfig extends GeneralServerApplication {
 
     @Value("${im.heartbeat.time}")
     private long heartBeatTime;
+
+    @Value("${im.port}")
+    private int imPort;
 }

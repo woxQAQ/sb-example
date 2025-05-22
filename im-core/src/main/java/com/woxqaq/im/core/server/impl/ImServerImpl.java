@@ -59,17 +59,20 @@ public class ImServerImpl implements ImServer {
             return;
         }
 
-        Request _req = Request.newBuilder()
+        Request.Builder _reqBuilder = Request.newBuilder()
                 .setRequestId(req.getUserId())
-                .setReqMsg(req.getMsg())
                 .putAllProperties(req.getOptions())
-                .setCmd(Command.MESSAGE)
-                .build();
+                .setCmd(Command.MESSAGE);
+        if (req.isBatch() ){
+            _reqBuilder.addAllBatchMsg(req.getBatchMsg());
+        } else {
+            _reqBuilder.setReqMsg(req.getMsg());
+        }
 
 
-        ch.writeAndFlush(_req).addListener(
+        ch.writeAndFlush(_reqBuilder.build()).addListener(
                 f -> {
-                    log.debug("server: push msg:{}", req.toString());
+                    log.debug("server: push {} msg:{}, socket channel {}", req.isBatch()?"batch":"single", req.toString(), ch);
                 });
     }
 }

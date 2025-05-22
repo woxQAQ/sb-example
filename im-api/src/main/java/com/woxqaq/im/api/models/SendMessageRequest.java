@@ -1,5 +1,6 @@
 package com.woxqaq.im.api.models;
 
+import java.util.List;
 import java.util.Map;
 
 import com.woxqaq.im.common.req.BaseRequest;
@@ -22,6 +23,9 @@ public class SendMessageRequest extends BaseRequest {
     @Schema(requiredMode = RequiredMode.REQUIRED, description = "message", example = "hello")
     private String msg;
 
+
+    private List<String> batchMsg;
+
     @NotNull(message = "userId cannot be empty")
     @Schema(requiredMode = RequiredMode.REQUIRED, description = "user id", example = "11223")
     private Long userId;
@@ -31,5 +35,9 @@ public class SendMessageRequest extends BaseRequest {
     public SendMessageRequest(String message, Long userId) {
         this.msg = message;
         this.userId = userId;
+    }
+
+    public boolean isBatch() {
+        return batchMsg != null && batchMsg.size() != 0;
     }
 }

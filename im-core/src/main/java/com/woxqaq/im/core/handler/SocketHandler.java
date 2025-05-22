@@ -1,9 +1,12 @@
 package com.woxqaq.im.core.handler;
 
 import com.woxqaq.im.common.exception.IMException;
+import com.woxqaq.im.common.kit.HeartBeatHandler;
 import com.woxqaq.im.common.pojo.UserInfo;
 import com.woxqaq.im.common.protocol.Command;
 import com.woxqaq.im.common.protocol.Request;
+import com.woxqaq.im.core.kit.RouteHandler;
+import com.woxqaq.im.core.kit.ServerHeartBeatHandler;
 import com.woxqaq.im.core.utils.ChannelManager;
 import com.woxqaq.im.core.utils.SpringBeanFactory;
 
@@ -12,6 +15,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +31,8 @@ public class SocketHandler extends SimpleChannelInboundHandler<Request> {
         if (userInfo != null) {
             log.warn("[{}] channel inactive", userInfo.getUsername());
 
-            // todo: clear route info
-            // fixme(woxQAQ)
+            RouteHandler routeHandler = SpringBeanFactory.getBean(RouteHandler.class);
+            routeHandler.userOffLine(userInfo, (NioSocketChannel) context.channel());
 
             context.channel().close();
         }
@@ -35,6 +40,14 @@ public class SocketHandler extends SimpleChannelInboundHandler<Request> {
 
     @Override
     public void userEventTriggered(ChannelHandlerContext context, Object event) throws Exception {
+        if (event instanceof IdleStateEvent evt) {
+            if (evt.state() == IdleState.READER_IDLE) {
+                log.info("Reader IDLE!!");
+
+                HeartBeatHandler heartBeatHandler = SpringBeanFactory.getBean(ServerHeartBeatHandler.class);
+                heartBeatHandler.process(context);
+            }
+        }
         super.userEventTriggered(context, event);
     }
 

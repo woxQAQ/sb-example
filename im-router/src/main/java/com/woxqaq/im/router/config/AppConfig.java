@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AppConfig extends GeneralServerApplication {
-    @Value("${route.way.route}")
+    @Value("${route.way.handler}")
     private String routeWay;
 
     @Value("${route.way.consistentHash}")

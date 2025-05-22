@@ -9,6 +9,7 @@ message Request {
   string reqMsg = 1;
   Command cmd = 3;
   map<string, string> properties = 4;
+  repeated string batchMsg = 5;
 }
 
 message Response {

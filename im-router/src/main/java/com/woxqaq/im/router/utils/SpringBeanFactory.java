@@ -1,4 +1,4 @@
-package com.woxqaq.im.core.utils;
+package com.woxqaq.im.router.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
