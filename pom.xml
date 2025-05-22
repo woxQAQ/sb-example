@@ -18,13 +18,17 @@
   <modules>
     <module>im-core</module>
     <module>im-common</module>
+    <module>im-router</module>
+    <module>im-api</module>
   </modules>
 
   <properties>
     <netty.version>4.1.68.Final</netty.version>
-    <spring-data-redis.version>3.4.5</spring-data-redis.version>
     <protobuf-java.version>4.28.3</protobuf-java.version>
     <protoc-gen-grpc-java.version>1.19.0</protoc-gen-grpc-java.version>
+    <curator.version>5.2.0</curator.version>
+    <jetcd.version>0.8.5</jetcd.version>
+    <caffeine.version>3.1.5</caffeine.version>
   </properties>
 
   <dependencies>
@@ -39,14 +43,15 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-redis</artifactId>
-        <version>${spring-data-redis.version}</version>
+        <groupId>com.woxqaq</groupId>
+        <artifactId>im-common</artifactId>
+        <version>${project.version}</version>
       </dependency>
+
 
       <dependency>
         <groupId>com.woxqaq</groupId>
-        <artifactId>im-common</artifactId>
+        <artifactId>im-api</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -54,6 +59,26 @@
         <groupId>com.github.xiaoymin</groupId>
         <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         <version>4.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-recipes</artifactId>
+        <version>${curator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+        <version>${caffeine.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>3.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.etcd</groupId>
+        <artifactId>jetcd-core</artifactId>
+        <version>${jetcd.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

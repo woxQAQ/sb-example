@@ -1,4 +1,4 @@
-package com.woxqaq.im.core.models;
+package com.woxqaq.im.api.models;
 
 import lombok.Getter;
 import lombok.Setter;

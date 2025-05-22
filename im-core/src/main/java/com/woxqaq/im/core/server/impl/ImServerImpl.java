@@ -2,12 +2,13 @@ package com.woxqaq.im.core.server.impl;
 
 import java.net.InetSocketAddress;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.woxqaq.im.api.models.SendMessageRequest;
 import com.woxqaq.im.common.protocol.Command;
 import com.woxqaq.im.common.protocol.Request;
 import com.woxqaq.im.core.handler.SockerInitiler;
-import com.woxqaq.im.core.models.SendMessageRequest;
 import com.woxqaq.im.core.server.ImServer;
 import com.woxqaq.im.core.utils.ChannelManager;
 
@@ -27,6 +28,7 @@ public class ImServerImpl implements ImServer {
     private EventLoopGroup boss = new NioEventLoopGroup();
     private EventLoopGroup work = new NioEventLoopGroup();
 
+    @Value("${im.server.port}")
     private int nettyPort;
 
     public void start() throws InterruptedException {
@@ -63,6 +65,7 @@ public class ImServerImpl implements ImServer {
                 .putAllProperties(req.getOptions())
                 .setCmd(Command.MESSAGE)
                 .build();
+
 
         ch.writeAndFlush(_req).addListener(
                 f -> {

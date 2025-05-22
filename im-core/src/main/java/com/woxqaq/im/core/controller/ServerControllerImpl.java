@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.woxqaq.im.api.CoreApi;
+import com.woxqaq.im.api.models.SendMessageRequest;
+import com.woxqaq.im.api.models.SendMessageResponse;
 import com.woxqaq.im.common.enums.StatusEnum;
 import com.woxqaq.im.common.res.BaseResponse;
-import com.woxqaq.im.core.models.SendMessageRequest;
-import com.woxqaq.im.core.models.SendMessageResponse;
 import com.woxqaq.im.core.server.ImServer;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +17,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Controller
 @RequestMapping("/")
-public class ServerController {
+public class ServerControllerImpl implements CoreApi {
     @Autowired
     private ImServer imServer;
 

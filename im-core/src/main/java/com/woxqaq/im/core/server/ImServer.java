@@ -1,6 +1,6 @@
 package com.woxqaq.im.core.server;
 
-import com.woxqaq.im.core.models.SendMessageRequest;
+import com.woxqaq.im.api.models.SendMessageRequest;
 
 public interface ImServer {
     /*

@@ -1,5 +1,6 @@
 package com.woxqaq.im.core.handler;
 
+import com.woxqaq.im.common.exception.IMException;
 import com.woxqaq.im.common.pojo.UserInfo;
 import com.woxqaq.im.common.protocol.Command;
 import com.woxqaq.im.common.protocol.Request;
@@ -8,12 +9,14 @@ import com.woxqaq.im.core.utils.SpringBeanFactory;
 
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@ChannelHandler.Sharable
 public class SocketHandler extends SimpleChannelInboundHandler<Request> {
     private static final AttributeKey<String> ATTR_KEY_READER_TIME = AttributeKey.valueOf("readerTime");
 
